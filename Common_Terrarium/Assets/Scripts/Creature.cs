@@ -25,10 +25,10 @@ public class Creature : MonoBehaviour
     public ISensor Sensor { get; set; }
 
     /// <summary>
-    /// The CostFunction determines the ernergy rewards/loss
+    /// The EnergyManager determines the ernergy rewards/loss
     /// for eating/holding on to life.
     /// </summary>
-    public ICostFunction CostFunction { get; }
+    public ICostFunction EnergyManager { get; }
 
     public IReproduction Reproducer { get; }
 
@@ -81,7 +81,8 @@ public class Creature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Energy -= CostFunction.LivingCost(this, Time.deltaTime);
+        Energy -= EnergyManager.LivingCost(this, Time.deltaTime);
+
         if (Energy <= 0){
             Destroy(this);
         }
@@ -95,9 +96,10 @@ public class Creature : MonoBehaviour
     public virtual void Move(Vector3 direction, float speed)
     {
         speed = Mathf.Clamp(speed, 0, 1);
+        direction.y = 0;
         Vector3 speedVector= direction.normalized * speed * MaxSpeed;
-        transform.position += speedVector;
-        Energy -= CostFunction.MoveCost(this, speedVector);
+        transform.position += speedVector * Time.deltaTime;
+        Energy -= EnergyManager.MoveCost(this, speed * MaxSpeed);
     }
 
     /// <summary>
@@ -108,7 +110,7 @@ public class Creature : MonoBehaviour
     /// <param name="food">What the creature eats</param>
     public void Eat(GameObject food)
     {
-        Energy += CostFunction.EatingReward(food, CreatureRegime);
+        Energy += EnergyManager.EatingReward(food, CreatureRegime);
         Destroy(food);
     }
 

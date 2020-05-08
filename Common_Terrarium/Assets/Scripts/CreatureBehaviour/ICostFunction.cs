@@ -28,6 +28,15 @@ namespace Assets.Scripts.CreatureBehaviour
         float LivingCost(Creature creature, float deltaTime);
 
         /// <summary>
+        /// When the creature moves at a certain speed,
+        /// this function returns how much it costs to move.
+        /// </summary>
+        /// <param name="creature">The moving creature</param>
+        /// <param name="speed">The current speed at which it moves</param>
+        /// <returns>The cost for moving</returns>
+        float MoveCost(Creature creature, float speed);
+
+        /// <summary>
         /// When the creature eats something, this function will be called
         /// to determine the energy reward(refill) the eating creature receives.
         /// </summary>
@@ -35,14 +44,5 @@ namespace Assets.Scripts.CreatureBehaviour
         /// <param name="regime">Specifies the regime of the creature</param>
         /// <returns>The erngy reward for eating the <paramref name="food"/></returns>
         float EatingReward(GameObject food, Creature.Regime regime);
-
-        /// <summary>
-        /// When the creature moves at a certain speed,
-        /// this function returns how much it costs to move.
-        /// </summary>
-        /// <param name="c">The moving creature</param>
-        /// <param name="speed">The current speed at which it moves</param>
-        /// <returns>The cost for moving</returns>
-        float MoveCost(Creature c, Vector3 speed);
     }
 }
