@@ -38,5 +38,7 @@ namespace Assets.Scripts.CreatureBehaviour
         /// <returns>A List of GameObject containing all surrounding .
         /// To access their properties, use <code>gameObject.GetComponent<Creature>()</code></returns>
         List<GameObject> SensePlants(Creature me);
+
+        public abstract float SensingRadius { get; }
     }
 }

@@ -81,7 +81,7 @@ public class Creature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Energy -= CostFunction.ComputeCost(this, Time.deltaTime);
+        Energy -= CostFunction.LivingCost(this, Time.deltaTime);
         if (Energy <= 0){
             Destroy(this);
         }
@@ -95,7 +95,9 @@ public class Creature : MonoBehaviour
     public virtual void Move(Vector3 direction, float speed)
     {
         speed = Mathf.Clamp(speed, 0, 1);
-        transform.position += direction.normalized * speed * MaxSpeed;
+        Vector3 speedVector= direction.normalized * speed * MaxSpeed;
+        transform.position += speedVector;
+        Energy -= CostFunction.MoveCost(this, speedVector);
     }
 
     /// <summary>
