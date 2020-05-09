@@ -17,6 +17,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
+            Debug.Log($"Creature AI is ready");
             creature = GetComponent<Creature>();
         }
 
@@ -29,6 +30,24 @@ namespace Assets.Scripts
             *creature.Sensor.SensePreys()
             *creature.Reproduce()
             */
+
+            //Current example :
+            var food = creature.Sensor.SensePlants(creature);
+            Vector3 closestFood = Vector3.zero;
+            float bestDistance = Vector3.Distance(closestFood, transform.position);
+            foreach(var foodPiece in food)
+            {
+                if (Vector3.Distance(foodPiece.transform.position, transform.position) < bestDistance)
+                {
+                    bestDistance = Vector3.Distance(foodPiece.transform.position, transform.position);
+                    closestFood = foodPiece.transform.position;
+                }
+            }
+            if (closestFood != Vector3.zero)
+            {
+                Debug.DrawLine(transform.position, closestFood, Color.red);
+                creature.Move(closestFood - transform.position, 1f);
+            }
         }
 
         /// <summary>

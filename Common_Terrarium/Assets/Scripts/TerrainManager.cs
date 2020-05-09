@@ -9,10 +9,22 @@ namespace Assets.Scripts
 {
     public class TerrainManager : MonoBehaviour
     {
-        public IFoodSpawner spawner;
-        public readonly List<Creature> creatures;
-        public List<GameObject> plants;
+        private IFoodSpawner spawner;
+        public GameObject plantFood;
 
-        //TODO
+        public void Start()
+        {
+            spawner = new UniformFoodSpawner(0, 200, 0, 200);
+        }
+
+        public void Update()
+        {
+
+            var foodPos = spawner.SpawnFood(Time.deltaTime, GameObject.FindGameObjectsWithTag("plant"));
+            if (foodPos != Vector3.zero)
+            {
+                var newFood = Instantiate(plantFood, foodPos, plantFood.transform.localRotation);
+            }
+        }
     }
 }

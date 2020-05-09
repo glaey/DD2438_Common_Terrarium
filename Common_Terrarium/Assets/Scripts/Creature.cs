@@ -42,9 +42,8 @@ public class Creature : MonoBehaviour
     /// The size of the creature.
     /// You can access it normally, but when setting it, the gameObject will also get bigger in the real scene.
     /// </summary>
-    public float Size {
-        get => Size;
-        set { Size = value; transform.localScale = transform.localScale.normalized * Size; } }
+    public float Size { get { return transform.localScale.sqrMagnitude; }
+        set { transform.localScale = transform.localScale.normalized * value; } }
 
     /// <summary>
     /// The maximal speed of the creature. How fast it moves at best.
@@ -56,8 +55,9 @@ public class Creature : MonoBehaviour
     /// just consult its state.
     /// </summary>
     public float Energy {
-        get => Energy;
-        private set { Energy = Mathf.Min(MaxEnergy, value); } }
+        get => currentEnergy;
+        private set { currentEnergy = Mathf.Min(MaxEnergy, value); } }
+    private float currentEnergy;
 
     /// <summary>
     /// The maximum amount of energy a creature can reach.
@@ -72,25 +72,48 @@ public class Creature : MonoBehaviour
     protected int individualId;
     protected int speciesId;
 
+    [SerializeField]
+    private float initialSize;
+    [SerializeField]
+    private Regime initialRegime;
+    [SerializeField]
+    private float initialMaxEnergy;
+    [SerializeField]
+    private float initialMaxSpeed;
+    [SerializeField]
+    private float initialSensingRadius;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"Instantiating the creature !, initial setup {initialSize}, {initialRegime},{initialMaxSpeed},{initialMaxEnergy}");
+        CreatureRegime = initialRegime;
+        MaxSpeed = initialMaxSpeed;
+        MaxEnergy = initialMaxEnergy;
+        Debug.Log($"Finished non crashing stuff");
+        Size = initialSize;
+        Sensor = new CircularSensor(initialSensingRadius);
+
         //Define the reproduction strategy
         Reproducer = new AsexualCommonDuplication();
         //Define the cost function for the energy
         EnergyManager = new CostFunction();
         //Set the energy to max since newborn !
         Energy = MaxEnergy;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log($"Energy {Energy}/{MaxEnergy}");
         Energy -= EnergyManager.LivingCost(this, Time.deltaTime);
 
         // Die
         if (Energy <= 0){
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
