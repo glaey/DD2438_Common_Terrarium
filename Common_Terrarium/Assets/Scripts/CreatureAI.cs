@@ -23,12 +23,10 @@ namespace Assets.Scripts
         public void Update()
         {
             //here, you can call creature.Move
-            // you can make it sense the surroundings and reproduce and mutate
+            // you can make it sense the surroundings and reproduce, mutation is encompassed in the IReproduction implementation
 
             /*creature.Move(...)
             *creature.Sensor.SensePreys()
-            *if (Unity.Random.Range(1)<0.2)
-            *   creature.CreatureRegime=Creature.Regime.CARNIVORE
             *creature.Reproduce()
             */
         }

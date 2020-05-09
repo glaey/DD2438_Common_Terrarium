@@ -13,7 +13,7 @@ namespace Assets.Scripts.CreatureBehaviour
     /// One can think of circular sensing : detecting everyone within a radius
     /// Or think of cone sensing : I can see until infinity between -theta/+theta in front of me
     /// </summary>
-    public interface ISensor
+    public abstract class ISensor
     {
         /// <summary>
         /// Detects ALL living creatures that are in your neighborhood, i.e herbivores and carnivores
@@ -21,7 +21,7 @@ namespace Assets.Scripts.CreatureBehaviour
         /// <param name="me">The sensing creature</param>
         /// <returns>A List of GameObject containing all surrounding living creatures.
         /// To access their properties, use <code>gameObject.GetComponent<Creature>()</code></returns>
-        List<GameObject> SenseCreatures(Creature me);
+        public abstract List<GameObject> SenseCreatures(Creature me);
 
         /// <summary>
         /// Detects all preys, i.e. herbivores, in your neighborhood.
@@ -29,7 +29,7 @@ namespace Assets.Scripts.CreatureBehaviour
         /// <param name="me">The sensing creature</param>
         /// <returns>A List of GameObject containing all surrounding herbivorous creatures.
         /// To access their properties, use <code>gameObject.GetComponent<Creature>()</code></returns>
-        List<GameObject> SensePreys(Creature me);
+        public abstract List<GameObject> SensePreys(Creature me);
 
         /// <summary>
         /// Detects all edible plants in your neighborhood
@@ -37,8 +37,8 @@ namespace Assets.Scripts.CreatureBehaviour
         /// <param name="me">The sensing creature</param>
         /// <returns>A List of GameObject containing all surrounding .
         /// To access their properties, use <code>gameObject.GetComponent<Creature>()</code></returns>
-        List<GameObject> SensePlants(Creature me);
+        public abstract List<GameObject> SensePlants(Creature me);
 
-        //public abstract float SensingRadius { get; }
+        public abstract float SensingRadius { get; }
     }
 }

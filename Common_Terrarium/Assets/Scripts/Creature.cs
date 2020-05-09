@@ -28,9 +28,9 @@ public class Creature : MonoBehaviour
     /// The EnergyManager determines the ernergy rewards/loss
     /// for eating/holding on to life.
     /// </summary>
-    public ICostFunction EnergyManager { get; }
+    public ICostFunction EnergyManager { get; private set; }
 
-    public IReproduction Reproducer { get; }
+    public IReproduction Reproducer { get; private set; }
 
 
     /// <summary>
@@ -75,7 +75,12 @@ public class Creature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //TODO : define all common interfaces beforehand
+        //Define the reproduction strategy
+        Reproducer = new AsexualCommonDuplication();
+        //Define the cost function for the energy
+        EnergyManager = new CostFunction();
+        //Set the energy to max since newborn !
+        Energy = MaxEnergy;
     }
 
     // Update is called once per frame
@@ -83,6 +88,7 @@ public class Creature : MonoBehaviour
     {
         Energy -= EnergyManager.LivingCost(this, Time.deltaTime);
 
+        // Die
         if (Energy <= 0){
             Destroy(this);
         }
@@ -121,8 +127,11 @@ public class Creature : MonoBehaviour
     /// </summary>
     public void Reproduce()
     {
+        //Instantiate the baby
         Creature baby = Instantiate<Creature>(this, transform.position,transform.rotation);
+        //Modify its characteristics
         this.Reproducer.CreateBaby(this, baby);
+        // The parent loses energy
         Energy -= EnergyManager.ReproductionCost(baby);
     }
 
