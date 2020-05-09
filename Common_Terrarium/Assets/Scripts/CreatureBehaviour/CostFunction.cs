@@ -19,7 +19,7 @@ namespace Assets.Scripts.CreatureBehaviour
 
         public float MoveCost(Creature creature, float speed)
         {
-            return creature.Size * Mathf.Pow(speed, 2);
+            return creature.Size * Mathf.Pow(speed, 2)/1000;//FIXME : the current /1000 is a temporal fix
         }
 
 
