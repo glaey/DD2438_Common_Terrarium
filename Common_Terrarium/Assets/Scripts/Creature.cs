@@ -121,7 +121,9 @@ public class Creature : MonoBehaviour
     /// </summary>
     public void Reproduce()
     {
-        Energy -= Reproducer.CreateBaby(this);
+        Creature baby = Instantiate<Creature>(this, transform.position,transform.rotation);
+        this.Reproducer.CreateBaby(this, baby);
+        Energy -= EnergyManager.ReproductionCost(baby);
     }
 
     public enum Regime

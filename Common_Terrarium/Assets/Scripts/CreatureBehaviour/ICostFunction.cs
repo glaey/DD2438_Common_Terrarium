@@ -9,10 +9,10 @@ namespace Assets.Scripts.CreatureBehaviour
 {
     /// <summary>
     /// The cost function simply decides how much energy
-    /// is consumed at each deltaTime since the last call
-    /// by a creature.
-    /// It also describes how much reward one creature gets
-    /// for eating something.
+    /// is consumed/gained for each and every action of a
+    /// creature.
+    /// It is thus the heart of the constaint that are applied
+    /// in the terrarium.
     /// </summary>
     public interface ICostFunction
     {
@@ -44,5 +44,13 @@ namespace Assets.Scripts.CreatureBehaviour
         /// <param name="regime">Specifies the regime of the creature</param>
         /// <returns>The erngy reward for eating the <paramref name="food"/></returns>
         float EatingReward(GameObject food, Creature.Regime regime);
+
+        /// <summary>
+        /// When the creature give birth to a baby, it may take some energy to do
+        /// so. This function determines the energy loss of reproduction.
+        /// </summary>
+        /// <param name="baby">The baby that was born</param>
+        /// <returns>The cost of reproducing</returns>
+        float ReproductionCost(Creature baby);
     }
 }

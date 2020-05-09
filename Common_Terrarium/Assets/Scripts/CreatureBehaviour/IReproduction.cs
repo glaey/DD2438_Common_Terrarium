@@ -12,13 +12,12 @@ namespace Assets.Scripts.CreatureBehaviour
     public interface IReproduction
     {
         /// <summary>
-        /// Should instantiate a new creature near the parent one.
-        /// Even though the interface looks like asexual reproduction,
-        /// remember you can use the sensor of the parent to detect the closest similar
-        /// individual and then do bisexual reproduction.
+        /// This reproduction interface allows you to define the characteristics of the newborn.
+        /// If you want to make your baby mutate according to some rule of yours,
+        /// it's here that it should happen.
         /// </summary>
         /// <param name="parent">The main parent of the newborn</param>
-        /// <returns>The amount of energy that is spent into reproducing</returns>
-        float CreateBaby(Creature parent);
+        /// <param name="baby">The baby whose parameters may (or not) be changed</param>
+        void CreateBaby(Creature parent,Creature baby);
     }
 }
