@@ -19,7 +19,7 @@ namespace Assets.Scripts.CreatureBehaviour
 
         public float MoveCost(Creature creature, float speed)
         {
-            return creature.Size * Mathf.Pow(speed, 2)/1000;//FIXME : the current /1000 is a temporal fix
+            return creature.Size * Mathf.Pow(speed*0.001f, 2);//FIXME : the current /1000 is a temporal fix
         }
 
 
@@ -37,7 +37,7 @@ namespace Assets.Scripts.CreatureBehaviour
 
         public float ReproductionCost(Creature baby)
         {
-            return 1; //FIXME : any better idea ?
+            return baby.Size; //FIXME : any better idea ?
         }
     }
 }

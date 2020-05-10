@@ -26,7 +26,7 @@ namespace Assets.Scripts
                     Debug.Log($"Creating species {k} - creature {i}");
                     float angle = (k * nIndividualsPerSpecies + i) * 360f / n;
                     Vector3 position = transform.position + Quaternion.Euler(0, angle, 0f) * Vector3.forward *50 ;
-                    Instantiate(species[0], position,new Quaternion(0,angle,0,0));
+                    Instantiate(species[0], position, new Quaternion(0,angle,0,0));
                 }
             }
         }
