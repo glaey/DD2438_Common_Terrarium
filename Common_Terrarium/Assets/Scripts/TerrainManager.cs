@@ -14,12 +14,12 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            spawner = new UniformFoodSpawner(0, 200, 0, 200);
+            spawner = new GuassianFoodSpawner(0, 200, 0, 200);
+            //spawner = new UniformFoodSpawner(0, 200, 0, 200);
         }
 
         public void Update()
         {
-
             var foodPos = spawner.SpawnFood(Time.deltaTime, GameObject.FindGameObjectsWithTag("plant"));
             if (foodPos != Vector3.zero)
             {
