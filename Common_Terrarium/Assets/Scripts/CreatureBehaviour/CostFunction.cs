@@ -13,13 +13,13 @@ namespace Assets.Scripts.CreatureBehaviour
 
         public float LivingCost(Creature creature, float deltaTime)
         {
-            return deltaTime * creature.Size * Mathf.Log(1 + creature.MaxSpeed);
+            return deltaTime * creature.Size * Mathf.Log(1 + creature.MaxSpeed) + deltaTime * creature.Sensor.SensingRadius;
         }
 
 
         public float MoveCost(Creature creature, float speed)
         {
-            return creature.Size * Mathf.Pow(speed, 2)/1000;//FIXME : the current /1000 is a temporal fix
+            return creature.Size * Mathf.Pow(speed*0.01f, 2);//FIXME : the current /1000 is a temporal fix
         }
 
 
@@ -27,17 +27,17 @@ namespace Assets.Scripts.CreatureBehaviour
         {
             if (regime == Creature.Regime.CARNIVORE)
             {
-                return food.GetComponent<Creature>().Size;
+                return 2*food.GetComponent<Creature>().Size;
             } else
             {
-                return 1;
+                return 200;
             }
         }
 
 
-        public float ReproductionCost(Creature baby)
+        public float ReproductionCost(Creature parent)
         {
-            return 1; //FIXME : any better idea ?
+            return parent.Energy/2;
         }
     }
 }

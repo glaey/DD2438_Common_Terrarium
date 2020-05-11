@@ -42,7 +42,7 @@ public class Creature : MonoBehaviour
     /// The size of the creature.
     /// You can access it normally, but when setting it, the gameObject will also get bigger in the real scene.
     /// </summary>
-    public float Size { get { return transform.localScale.sqrMagnitude; }
+    public float Size { get { return transform.localScale.magnitude; }
         set { transform.localScale = transform.localScale.normalized * value; } }
 
     /// <summary>
@@ -65,12 +65,7 @@ public class Creature : MonoBehaviour
     public float MaxEnergy { get; set; }
 
 
-
     /// ----- ATTRIBUTES
-
-    protected string SpeciesName;
-    protected int individualId;
-    protected int speciesId;
 
     [SerializeField]
     private float initialSize;
@@ -91,7 +86,6 @@ public class Creature : MonoBehaviour
         CreatureRegime = initialRegime;
         MaxSpeed = initialMaxSpeed;
         MaxEnergy = initialMaxEnergy;
-        Debug.Log($"Finished non crashing stuff");
         Size = initialSize;
         Sensor = new CircularSensor(initialSensingRadius);
 
@@ -100,7 +94,13 @@ public class Creature : MonoBehaviour
         //Define the cost function for the energy
         EnergyManager = new CostFunction();
         //Set the energy to max since newborn !
-        Energy = MaxEnergy;
+        if (Time.frameCount < 3)
+            Energy = MaxEnergy;
+        else
+        {
+            Debug.Log($"I am a baby, energy is {Energy}");
+            Energy = EnergyManager.ReproductionCost(this);
+        }
 
 
     }
@@ -108,7 +108,6 @@ public class Creature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"Energy {Energy}/{MaxEnergy}");
         Energy -= EnergyManager.LivingCost(this, Time.deltaTime);
 
         // Die
@@ -150,12 +149,65 @@ public class Creature : MonoBehaviour
     /// </summary>
     public void Reproduce()
     {
+        if (Energy <= EnergyManager.ReproductionCost(this))
+            return;
         //Instantiate the baby
-        Creature baby = Instantiate<Creature>(this, transform.position,transform.rotation);
+        Creature baby = Instantiate<Creature>(this, getClosestFreePoint(transform.position),transform.rotation);
+        baby.name = this.name;
         //Modify its characteristics
         this.Reproducer.CreateBaby(this, baby);
-        // The parent loses energy
-        Energy -= EnergyManager.ReproductionCost(baby);
+        // The parent loses energy and gives it to the child
+        baby.Energy = EnergyManager.ReproductionCost(this);
+        Energy -= EnergyManager.ReproductionCost(this);
+    }
+
+    Vector3 getClosestFreePoint(Vector3 point)
+    {
+        Vector3 closestPoint = Vector3.positiveInfinity;
+        Vector3 testPoint = point;
+        float radius = 1f;
+        int i = 0;
+
+        while (closestPoint.magnitude == float.PositiveInfinity)
+        {
+            switch (i)
+            {
+                case 0:
+                    testPoint = point + new Vector3(0, 0, radius);
+                    break;
+                case 1:
+                    testPoint = point + new Vector3(0, 0, -radius);
+                    break;
+                case 2:
+                    testPoint = point + new Vector3(radius, 0, 0);
+                    break;
+                case 3:
+                    testPoint = point + new Vector3(-radius, 0, 0);
+                    radius = radius + 1f;
+                    break;
+            }
+
+            if (!isObstacle(testPoint))
+            {
+                closestPoint = testPoint;
+            }
+
+            i = (i + 1) % 4;
+        }
+        return closestPoint;
+    }
+
+    bool isObstacle(Vector3 point)
+    {
+        LayerMask mask = LayerMask.GetMask("Default");
+        bool obstacle = false;
+
+        Collider[] hitColliders = Physics.OverlapSphere(point, transform.localScale.x, mask);
+        if (hitColliders.Length != 0)
+        {
+            obstacle = true;
+        }
+        return obstacle;
     }
 
     public enum Regime

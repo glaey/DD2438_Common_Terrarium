@@ -23,7 +23,7 @@ namespace Assets.Scripts
         public Vector3 SpawnFood(float deltaTime, GameObject[] otherPlants)
         {
             time += deltaTime;
-            if (time > 1)
+            if (time > 0.5)
             {
                 time = 0;
                 float x = UnityEngine.Random.Range(xMin, xMax);

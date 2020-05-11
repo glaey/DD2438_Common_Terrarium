@@ -48,6 +48,7 @@ namespace Assets.Scripts
                 Debug.DrawLine(transform.position, closestFood, Color.red);
                 creature.Move(closestFood - transform.position, 1f);
             }
+
         }
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace Assets.Scripts
         public virtual void OnAccessibleFood(GameObject food)
         {
             creature.Eat(food);
+            if (creature.Energy > 0.2 * creature.MaxEnergy && UnityEngine.Random.Range(0,1)<0.1f) creature.Reproduce();
         }
     }
 }
