@@ -65,12 +65,7 @@ public class Creature : MonoBehaviour
     public float MaxEnergy { get; set; }
 
 
-
     /// ----- ATTRIBUTES
-
-    protected string SpeciesName;
-    protected int individualId;
-    protected int speciesId;
 
     [SerializeField]
     private float initialSize;
@@ -99,7 +94,13 @@ public class Creature : MonoBehaviour
         //Define the cost function for the energy
         EnergyManager = new CostFunction();
         //Set the energy to max since newborn !
-        Energy = MaxEnergy;
+        if (Time.frameCount < 3)
+            Energy = MaxEnergy;
+        else
+        {
+            Debug.Log($"I am a baby, energy is {Energy}");
+            Energy = EnergyManager.ReproductionCost(this);
+        }
 
 
     }
@@ -152,10 +153,12 @@ public class Creature : MonoBehaviour
             return;
         //Instantiate the baby
         Creature baby = Instantiate<Creature>(this, getClosestFreePoint(transform.position),transform.rotation);
+        baby.name = this.name;
         //Modify its characteristics
         this.Reproducer.CreateBaby(this, baby);
-        // The parent loses energy
-        Energy -= EnergyManager.ReproductionCost(baby);
+        // The parent loses energy and gives it to the child
+        baby.Energy = EnergyManager.ReproductionCost(this);
+        Energy -= EnergyManager.ReproductionCost(this);
     }
 
     Vector3 getClosestFreePoint(Vector3 point)

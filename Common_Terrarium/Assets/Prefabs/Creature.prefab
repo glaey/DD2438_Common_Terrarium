@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSize: 5
   initialRegime: 0
-  initialMaxEnergy: 400
+  initialMaxEnergy: 1000
   initialMaxSpeed: 5
   initialSensingRadius: 30
 --- !u!114 &2245297386171667839

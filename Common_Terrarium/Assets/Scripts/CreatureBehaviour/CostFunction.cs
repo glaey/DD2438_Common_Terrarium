@@ -13,7 +13,7 @@ namespace Assets.Scripts.CreatureBehaviour
 
         public float LivingCost(Creature creature, float deltaTime)
         {
-            return deltaTime * creature.Size * Mathf.Log(1 + creature.MaxSpeed);
+            return deltaTime * creature.Size * Mathf.Log(1 + creature.MaxSpeed) + deltaTime * creature.Sensor.SensingRadius;
         }
 
 
@@ -35,9 +35,9 @@ namespace Assets.Scripts.CreatureBehaviour
         }
 
 
-        public float ReproductionCost(Creature baby)
+        public float ReproductionCost(Creature parent)
         {
-            return 2*baby.Size; //FIXME : any better idea ?
+            return parent.Energy/2;
         }
     }
 }
