@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - creature
+  - plant
+  - wall
+  - herbivore
+  - carnivore
+  - rock
   layers:
   - Default
   - TransparentFX
