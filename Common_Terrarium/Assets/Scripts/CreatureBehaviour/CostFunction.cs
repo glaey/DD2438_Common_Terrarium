@@ -19,7 +19,7 @@ namespace Assets.Scripts.CreatureBehaviour
 
         public float MoveCost(Creature creature, float speed)
         {
-            return creature.Size * Mathf.Pow(speed*0.001f, 2);//FIXME : the current /1000 is a temporal fix
+            return creature.Size * Mathf.Pow(speed*0.01f, 2);//FIXME : the current /1000 is a temporal fix
         }
 
 
@@ -27,17 +27,17 @@ namespace Assets.Scripts.CreatureBehaviour
         {
             if (regime == Creature.Regime.CARNIVORE)
             {
-                return food.GetComponent<Creature>().Size;
+                return 2*food.GetComponent<Creature>().Size;
             } else
             {
-                return 1;
+                return 200;
             }
         }
 
 
         public float ReproductionCost(Creature baby)
         {
-            return baby.Size; //FIXME : any better idea ?
+            return 2*baby.Size; //FIXME : any better idea ?
         }
     }
 }
