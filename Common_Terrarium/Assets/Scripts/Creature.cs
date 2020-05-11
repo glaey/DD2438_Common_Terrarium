@@ -151,11 +151,60 @@ public class Creature : MonoBehaviour
     public void Reproduce()
     {
         //Instantiate the baby
-        Creature baby = Instantiate<Creature>(this, transform.position,transform.rotation);
+        Creature baby = Instantiate<Creature>(this, getClosestFreePoint(transform.position),transform.rotation);
         //Modify its characteristics
         this.Reproducer.CreateBaby(this, baby);
         // The parent loses energy
         Energy -= EnergyManager.ReproductionCost(baby);
+    }
+
+    Vector3 getClosestFreePoint(Vector3 point)
+    {
+        Vector3 closestPoint = Vector3.positiveInfinity;
+        Vector3 testPoint = point;
+        float radius = 1f;
+        int i = 0;
+
+        while (closestPoint.magnitude == float.PositiveInfinity)
+        {
+            switch (i)
+            {
+                case 0:
+                    testPoint = point + new Vector3(0, 0, radius);
+                    break;
+                case 1:
+                    testPoint = point + new Vector3(0, 0, -radius);
+                    break;
+                case 2:
+                    testPoint = point + new Vector3(radius, 0, 0);
+                    break;
+                case 3:
+                    testPoint = point + new Vector3(-radius, 0, 0);
+                    radius = radius + 1f;
+                    break;
+            }
+
+            if (!isObstacle(testPoint))
+            {
+                closestPoint = testPoint;
+            }
+
+            i = (i + 1) % 4;
+        }
+        return closestPoint;
+    }
+
+    bool isObstacle(Vector3 point)
+    {
+        LayerMask mask = LayerMask.GetMask("Default");
+        bool obstacle = false;
+
+        Collider[] hitColliders = Physics.OverlapSphere(point, transform.localScale.x, mask);
+        if (hitColliders.Length != 0)
+        {
+            obstacle = true;
+        }
+        return obstacle;
     }
 
     public enum Regime
