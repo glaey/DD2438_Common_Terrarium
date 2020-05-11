@@ -29,36 +29,36 @@ namespace Assets.Scripts
             raySensors.rayLength = creature.Sensor.SensingRadius;
         }
 
-        //public void Update()
-        //{
-        //    //here, you can call creature.Move
-        //    // you can make it sense the surroundings and reproduce, mutation is encompassed in the IReproduction implementation
+        public void Update()
+        {
+            //here, you can call creature.Move
+            // you can make it sense the surroundings and reproduce, mutation is encompassed in the IReproduction implementation
 
-        //    /*creature.Move(...)
-        //    *creature.Sensor.SensePreys()
-        //    *creature.Reproduce()
-        //    */
+            /*creature.Move(...)
+            *creature.Sensor.SensePreys()
+            *creature.Reproduce()
+            */
 
-        //    //Current example :
-        //    var food = creature.Sensor.SensePlants(creature);
-        //    Vector3 closestFood = Vector3.zero;
-        //    float bestDistance = Vector3.Distance(closestFood, transform.position);
-        //    foreach (var foodPiece in food)
-        //    {
-        //        if (Vector3.Distance(foodPiece.transform.position, transform.position) < bestDistance)
-        //        {
-        //            bestDistance = Vector3.Distance(foodPiece.transform.position, transform.position);
-        //            closestFood = foodPiece.transform.position;
-        //        }
-        //    }
-        //    if (closestFood != Vector3.zero)
-        //    {
-        //        Debug.DrawLine(transform.position, closestFood, Color.red);
-        //        creature.Move(closestFood - transform.position, 1f);
-        //    }
-        //    //Vector3 dir = new Vector3(0.1f, 0f, 0.2f);
-        //    //creature.Move(dir, 1f);
-        //}
+            //Current example :
+            var food = creature.Sensor.SensePlants(creature);
+            Vector3 closestFood = Vector3.zero;
+            float bestDistance = Vector3.Distance(closestFood, transform.position);
+            foreach (var foodPiece in food)
+            {
+                if (Vector3.Distance(foodPiece.transform.position, transform.position) < bestDistance)
+                {
+                    bestDistance = Vector3.Distance(foodPiece.transform.position, transform.position);
+                    closestFood = foodPiece.transform.position;
+                }
+            }
+            if (closestFood != Vector3.zero)
+            {
+                Debug.DrawLine(transform.position, closestFood, Color.red);
+                creature.Move(closestFood - transform.position, 1f);
+            }
+            //Vector3 dir = new Vector3(0.1f, 0f, 0.2f);
+            //creature.Move(dir, 1f);
+        }
 
         private (GameObject, bool) FindFood()
         {
@@ -91,83 +91,6 @@ namespace Assets.Scripts
             creature.Eat(food);
         }
 
-        //// Perform actions based on a vector of numbers
-        //public override void OnActionReceived(float[] vectorAction)
-        //{
-            
-        //    float horiz = vectorAction[0];
-        //    float vert = vectorAction[1];
-        //    float speed = vectorAction[2];
-        //    float eat = vectorAction[3];
-        //    float reproduction = vectorAction[4];
 
-        //    // Direction, normalized
-        //    if (horiz == 2f)
-        //        horiz = -1f;
-        //    if (vert == 2f)
-        //        vert = -1f;
-        //    Vector3 dir = new Vector3(horiz, 0f, vert);
-        //    dir = dir.normalized;
-
-        //    // Speed, normalized
-        //    speed = speed / 4f;
-
-        //    // Eat
-        //    if (eat == 1f)
-        //    {
-        //        // Try to eat
-        //        // TODO: Return empty object if no food, and check if empty
-        //        (GameObject, bool) food = FindFood();
-        //        if (food.Item2)
-        //        {
-        //            creature.Eat(food.Item1);
-        //            AddReward(1.0f);
-        //        }
-        //    }
-                
-        //    // Reproduce
-        //    bool repSuccess = false;
-        //    // Try to reproduce
-        //    //if (reproduction == 1f)
-        //    //    repSuccess = creature.Reproduce();
-        //    // If successful, add reward
-        //    if (repSuccess)
-        //        AddReward(0.5f);
-
-        //    creature.Move(dir, speed);
-
-        //    AddReward(-1f/3000f);
-        //}
-
-        //// Reset the agent and area
-        //public override void OnEpisodeBegin()
-        //{
-
-        //}
-
-        //public override void CollectObservations(VectorSensor sensor)
-        //{
-        //    // Add parameters
-            
-        //    // 1 value, INT
-        //    sensor.AddObservation((int)creature.CreatureRegime);
-
-        //    // 1 value, float
-        //    sensor.AddObservation(creature.Energy);
-
-        //    // 1 value, float
-        //    sensor.AddObservation(creature.MaxEnergy);
-
-        //    // 1 value, float
-        //    sensor.AddObservation(creature.Size);
-
-        //    // 4 VALUES TOTAL
-
-        //}
-
-        //public void EndMe()
-        //{
-        //    EndEpisode();
-        //}
     }
 }
