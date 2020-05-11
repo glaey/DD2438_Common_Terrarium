@@ -38,6 +38,7 @@ namespace Assets.Scripts
             {
                 Creature c = animal.GetComponent<Creature>();
                 List<GameObject> animalFood;
+
                 if (c.CreatureRegime == Creature.Regime.HERBIVORE)
                 {
                     //herbivores eat plants
@@ -67,7 +68,6 @@ namespace Assets.Scripts
                 }
 
             }
-            //same with carnivores
         }
 
     }

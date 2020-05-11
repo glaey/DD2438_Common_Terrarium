@@ -49,7 +49,7 @@ namespace Assets.Scripts.CreatureBehaviour
             var herbivorePreys = new List<GameObject>();
             foreach(var neighbor in neighbors)
             {
-                if (neighbor.GetComponent<Creature>().CreatureRegime == Creature.Regime.HERBIVORE)
+                if (neighbor.GetComponent<Creature>().Size < me.Size * 0.7f)
                     herbivorePreys.Add(neighbor);
             }
             return herbivorePreys;
