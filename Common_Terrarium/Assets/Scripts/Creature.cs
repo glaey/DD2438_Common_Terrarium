@@ -42,7 +42,7 @@ public class Creature : MonoBehaviour
     /// The size of the creature.
     /// You can access it normally, but when setting it, the gameObject will also get bigger in the real scene.
     /// </summary>
-    public float Size { get { return transform.localScale.sqrMagnitude; }
+    public float Size { get { return transform.localScale.magnitude; }
         set { transform.localScale = transform.localScale.normalized * value; } }
 
     /// <summary>
@@ -91,7 +91,6 @@ public class Creature : MonoBehaviour
         CreatureRegime = initialRegime;
         MaxSpeed = initialMaxSpeed;
         MaxEnergy = initialMaxEnergy;
-        Debug.Log($"Finished non crashing stuff");
         Size = initialSize;
         Sensor = new CircularSensor(initialSensingRadius);
 
@@ -108,7 +107,6 @@ public class Creature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"Energy {Energy}/{MaxEnergy}");
         Energy -= EnergyManager.LivingCost(this, Time.deltaTime);
 
         // Die
@@ -150,6 +148,8 @@ public class Creature : MonoBehaviour
     /// </summary>
     public void Reproduce()
     {
+        if (Energy <= EnergyManager.ReproductionCost(this))
+            return;
         //Instantiate the baby
         Creature baby = Instantiate<Creature>(this, getClosestFreePoint(transform.position),transform.rotation);
         //Modify its characteristics

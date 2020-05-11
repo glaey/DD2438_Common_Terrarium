@@ -154,7 +154,8 @@ MonoBehaviour:
   terrainManager: {fileID: 2014192660}
   species:
   - {fileID: 2245297386171667839, guid: 0430f42d387c247818951e3fbe5da221, type: 3}
-  nIndividualsPerSpecies: 20
+  - {fileID: 3227549681888256330, guid: 906a98c3636937f489916620d080e694, type: 3}
+  nIndividualsPerSpecies: 5
 --- !u!4 &21908270
 Transform:
   m_ObjectHideFlags: 0

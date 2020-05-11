@@ -60,7 +60,7 @@ namespace Assets.Scripts
         public virtual void OnAccessibleFood(GameObject food)
         {
             creature.Eat(food);
-            if (creature.Energy > 0.2 * creature.MaxEnergy) creature.Reproduce();
+            if (creature.Energy > 0.2 * creature.MaxEnergy && UnityEngine.Random.Range(0,1)<0.1f) creature.Reproduce();
         }
     }
 }
