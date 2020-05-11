@@ -11,10 +11,11 @@ namespace Assets.Scripts
     {
         private IFoodSpawner spawner;
         public GameObject plantFood;
+        public GameObject plantSpawn;
 
         public void Start()
         {
-            spawner = new GuassianFoodSpawner(0, 200, 0, 200);
+            spawner = new GuassianFoodSpawner(plantSpawn.transform.position, 100);
             //spawner = new UniformFoodSpawner(0, 200, 0, 200);
         }
 

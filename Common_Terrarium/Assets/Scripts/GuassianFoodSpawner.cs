@@ -14,12 +14,12 @@ namespace Assets.Scripts
         public float nr_guassians = 10;
         public float std = 20;
         private List<(float, float)> centers;
-        public GuassianFoodSpawner(float xMin, float xMax, float zMin, float zMax)
+        public GuassianFoodSpawner(Vector3 position, float variance)
         {
-            this.xMin = xMin;
-            this.xMax = xMax;
-            this.zMin = zMin;
-            this.zMax = zMax;
+            this.xMin = position.x - variance;
+            this.xMax = position.x + variance;
+            this.zMin = position.z - variance;
+            this.zMax = position.z + variance;
             time = 0;
 
             centers = new List<(float, float)>();
@@ -63,7 +63,7 @@ namespace Assets.Scripts
 
                 //Debug.DrawLine(new Vector3(x_mean,0.1f, z_mean), new Vector3(x, 0.1f, z), Color.white, 300f);
 
-                return new Vector3(x, 0f, z);
+                return new Vector3(x, 15f, z);
             }
             return Vector3.zero;
         }
