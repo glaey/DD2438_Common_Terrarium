@@ -29,7 +29,7 @@ namespace Assets.Scripts
                 Creature c = animal.GetComponent<Creature>();
                 List<GameObject> animalFood;
                 
-                // Carnivores eat plants
+                // Herbivores eat plants
                 animalFood = c.Sensor.SensePlants(c);
 
                 //the closest within the edible radius can be eaten

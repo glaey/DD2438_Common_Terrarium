@@ -49,8 +49,8 @@ namespace Assets.Scripts.CreatureBehaviour
         /// When the creature give birth to a baby, it may take some energy to do
         /// so. This function determines the energy loss of reproduction.
         /// </summary>
-        /// <param name="baby">The baby that was born</param>
+        /// <param name="parent">The parent giving birth</param>
         /// <returns>The cost of reproducing</returns>
-        float ReproductionCost(Creature baby);
+        float ReproductionCost(Creature parent);
     }
 }

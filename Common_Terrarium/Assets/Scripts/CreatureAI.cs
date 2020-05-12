@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using MLAgents;
-using MLAgents.Sensors;
 
 namespace Assets.Scripts
 {
@@ -16,17 +14,11 @@ namespace Assets.Scripts
     public class CreatureAI : MonoBehaviour
     {
         private Creature creature;
-        private RayPerceptionSensorComponent3D raySensors;
 
         public void Start()
         {
             Debug.Log($"Creature AI is ready");
             creature = GetComponent<Creature>();
-
-            // TODO: match raycast length to sensor size
-            RayPerceptionSensorComponent3D raySensors = GetComponent<RayPerceptionSensorComponent3D>();
-
-            raySensors.rayLength = creature.Sensor.SensingRadius;
         }
 
         public void Update()
@@ -56,28 +48,7 @@ namespace Assets.Scripts
                 Debug.DrawLine(transform.position, closestFood, Color.red);
                 creature.Move(closestFood - transform.position, 1f);
             }
-            //Vector3 dir = new Vector3(0.1f, 0f, 0.2f);
-            //creature.Move(dir, 1f);
-        }
 
-        private (GameObject, bool) FindFood()
-        {
-            List<GameObject> food = creature.Sensor.SensePlants(creature);
-            Vector3 closestFood = Vector3.zero;
-            float bestDistance = Vector3.Distance(closestFood, transform.position);
-            GameObject closestFoodObj = new GameObject("empty");
-            if (food.Count == 0)
-                return ((closestFoodObj, false));
-            foreach (var foodPiece in food)
-            {
-                if (Vector3.Distance(foodPiece.transform.position, transform.position) < bestDistance)
-                {
-                    bestDistance = Vector3.Distance(foodPiece.transform.position, transform.position);
-                    closestFood = foodPiece.transform.position;
-                    closestFoodObj = foodPiece;
-                }
-            }
-            return (closestFoodObj, true);
         }
 
         /// <summary>
@@ -89,6 +60,7 @@ namespace Assets.Scripts
         public virtual void OnAccessibleFood(GameObject food)
         {
             creature.Eat(food);
+            if (creature.Energy > 0.2 * creature.MaxEnergy && UnityEngine.Random.Range(0,1)<0.1f) creature.Reproduce();
         }
 
 
