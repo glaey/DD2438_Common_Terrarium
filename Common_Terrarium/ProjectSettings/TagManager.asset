@@ -6,7 +6,10 @@ TagManager:
   tags:
   - creature
   - plant
-  - Terrain
+  - wall
+  - herbivore
+  - carnivore
+  - rock
   layers:
   - Default
   - TransparentFX

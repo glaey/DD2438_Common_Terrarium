@@ -114,6 +114,7 @@ public class Creature : MonoBehaviour
         if (Energy <= 0){
             Destroy(this.gameObject);
         }
+
     }
 
     /// <summary>
@@ -128,6 +129,10 @@ public class Creature : MonoBehaviour
         Vector3 speedVector= direction.normalized * speed * MaxSpeed;
         transform.position += speedVector * Time.deltaTime;
         Energy -= EnergyManager.MoveCost(this, speed * MaxSpeed);
+
+        // Rotate models
+        Quaternion rotation = Quaternion.LookRotation(-direction, Vector3.up);
+        transform.rotation = rotation;
     }
 
     /// <summary>
