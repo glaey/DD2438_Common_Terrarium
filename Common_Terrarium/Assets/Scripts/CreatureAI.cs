@@ -47,6 +47,9 @@ namespace Assets.Scripts
             {
                 Debug.DrawLine(transform.position, closestFood, Color.red);
                 creature.Move(closestFood - transform.position, 1f);
+            } else
+            {
+                creature.Move(new Vector3(UnityEngine.Random.Range(0f,1f),0,UnityEngine.Random.Range(0f,1f)), 0.2f);
             }
 
         }
