@@ -27,7 +27,7 @@ public class DynamicCamera : MonoBehaviour
         }
         gravityCenter /= creatures.Length;
         transform.position = new Vector3(gravityCenter.x, transform.position.y, gravityCenter.z);
-        camera.fieldOfView = Mathf.Max(40,360* Mathf.Atan(Mathf.Max(zMax - zMin, xMax - xMin)/(transform.position.y)) / Mathf.PI);
+        camera.fieldOfView = Mathf.Max(40,270* Mathf.Atan(Mathf.Max(zMax - zMin, xMax - xMin)/(transform.position.y)) / Mathf.PI);
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class DynamicCamera : MonoBehaviour
             float deltaX = Mathf.Lerp(transform.position.x, gravityCenter.x, CAMERA_SPEED * Time.deltaTime);
             float deltaZ = Mathf.Lerp(transform.position.z, gravityCenter.z, CAMERA_SPEED * Time.deltaTime);
             transform.position = new Vector3(deltaX, transform.position.y, deltaZ);
-            float deltaFOV = Mathf.Lerp(camera.fieldOfView, Mathf.Max(40, 360 * Mathf.Atan(Mathf.Max(zMax - zMin, xMax - xMin) / (transform.position.y)) / Mathf.PI), Time.deltaTime * CAMERA_SPEED);
+            float deltaFOV = Mathf.Lerp(camera.fieldOfView, Mathf.Max(40, 270 * Mathf.Atan(Mathf.Max(zMax - zMin, xMax - xMin) / (transform.position.y)) / Mathf.PI), Time.deltaTime * CAMERA_SPEED);
             camera.fieldOfView = deltaFOV;
         }
 
