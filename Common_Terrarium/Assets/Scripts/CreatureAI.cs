@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using MLAgents;
-using MLAgents.Sensors;
 
 namespace Assets.Scripts
 {
@@ -16,17 +14,11 @@ namespace Assets.Scripts
     public class CreatureAI : MonoBehaviour
     {
         private Creature creature;
-        private RayPerceptionSensorComponent3D raySensors;
 
         public void Start()
         {
             Debug.Log($"Creature AI is ready");
             creature = GetComponent<Creature>();
-
-            // TODO: match raycast length to sensor size
-            RayPerceptionSensorComponent3D raySensors = GetComponent<RayPerceptionSensorComponent3D>();
-
-            raySensors.rayLength = creature.Sensor.SensingRadius;
         }
 
         public void Update()

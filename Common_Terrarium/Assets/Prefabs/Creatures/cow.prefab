@@ -87,14 +87,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4973431802215156}
-  - component: {fileID: -2404544251317650125}
-  - component: {fileID: 3821143684904460300}
-  - component: {fileID: 9170133519220352499}
-  - component: {fileID: 4474614542660959475}
-  - component: {fileID: 102650036381056410}
+  - component: {fileID: -711822758851703956}
+  - component: {fileID: 6083475911907493932}
+  - component: {fileID: 8337021504670136948}
+  - component: {fileID: 3766652238566048637}
   m_Layer: 0
   m_Name: cow
-  m_TagString: herbivore
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,42 +110,29 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4783507138554684}
-  - {fileID: 4740200627253113090}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2404544251317650125
+--- !u!114 &-711822758851703956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266784798760454}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53e305c9bc1985841968c6b7cfa80af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3821143684904460300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266784798760454}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70bd1b9f6a3aa4125bad23475df5c2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9170133519220352499
+--- !u!114 &6083475911907493932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266784798760454}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8581c345dce24bcdbcca5cb0d76e590, type: 3}
   m_Name: 
@@ -155,8 +141,8 @@ MonoBehaviour:
   initialRegime: 0
   initialMaxEnergy: 100000
   initialMaxSpeed: 20
-  initialSensingRadius: 1
---- !u!54 &4474614542660959475
+  initialSensingRadius: 100
+--- !u!54 &8337021504670136948
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,7 +158,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!65 &102650036381056410
+--- !u!65 &3766652238566048637
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,67 +169,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 3}
-  m_Center: {x: -0.1, y: 1, z: -0.5}
---- !u!1 &8076870680058291987
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4740200627253113090}
-  - component: {fileID: 3200161478710200385}
-  m_Layer: 0
-  m_Name: childSensor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4740200627253113090
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8076870680058291987}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4973431802215156}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3200161478710200385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8076870680058291987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: FrontRayPerceptionSensor
-  m_DetectableTags:
-  - herbivore
-  - carnivore
-  - plant
-  - wall
-  - rock
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 90
-  m_SphereCastRadius: 0.5
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0.6
-  m_EndVerticalOffset: 1
+  m_Size: {x: 2, y: 2, z: 2.5}
+  m_Center: {x: -0.1, y: 1, z: -0.4}
