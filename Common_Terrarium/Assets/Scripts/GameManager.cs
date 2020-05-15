@@ -51,6 +51,7 @@ namespace Assets.Scripts
                 }
 
             }
+
             //same with carnivores
             foreach (var animal in GameObject.FindGameObjectsWithTag("carnivore"))
             {
@@ -79,6 +80,12 @@ namespace Assets.Scripts
                     Debug.Log($"Calling the eating method !");
                 }
 
+            }
+
+            // measure stats of the species if you have overritten updateStats in your DragonAI
+            foreach (CreatureAI specie in species)
+            {
+                specie.updateStats();
             }
         }
 
@@ -114,6 +121,7 @@ namespace Assets.Scripts
 
             for (int k = 0; k < species.Length; k++)
             {
+                species[k].specieID = k;
                 for (int i = 0; i < nIndividualsPerSpecies; i++)
                 {
                     Debug.Log($"Creating species {k} - creature {i}");

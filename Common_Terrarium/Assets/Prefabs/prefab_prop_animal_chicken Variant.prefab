@@ -29,7 +29,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4684505238238872905
+--- !u!114 &2243626970920747958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38,9 +38,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4162796888285156505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bd1b9f6a3aa4125bad23475df5c2b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 02b63ba9f77ed4b7291c3b5ce0bc80d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specieName: Chicken
+  specieID: 0
 --- !u!114 &6965390122154162833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8581c345dce24bcdbcca5cb0d76e590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSize: 20
+  initialSize: 2
   initialRegime: 0
   initialMaxEnergy: 2000
   initialMaxSpeed: 20

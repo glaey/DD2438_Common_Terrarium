@@ -22,7 +22,7 @@ public class Creature : MonoBehaviour
     /// The Sensor of the creature keeps track of what is surrounding it
     /// Call it when you need to detect something.
     /// </summary>
-    public ISensor Sensor { get; set; }
+    public ISensorV2 Sensor { get; set; }
 
     /// <summary>
     /// The EnergyManager determines the ernergy rewards/loss
@@ -64,6 +64,11 @@ public class Creature : MonoBehaviour
     /// </summary>
     public float MaxEnergy { get; set; }
 
+    /// <summary>
+    /// The generation of the creature. Starts from 0.
+    /// </summary>
+    public int Generation { get; set; }
+
 
     /// ----- ATTRIBUTES
 
@@ -82,27 +87,25 @@ public class Creature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"Instantiating the creature !, initial setup {initialSize}, {initialRegime},{initialMaxSpeed},{initialMaxEnergy}");
-        CreatureRegime = initialRegime;
-        MaxSpeed = initialMaxSpeed;
-        MaxEnergy = initialMaxEnergy;
-        Size = initialSize;
-        Sensor = new CircularSensor(initialSensingRadius);
-
         //Define the reproduction strategy
-        Reproducer = new AsexualCommonDuplication();
+        Reproducer = new AsexualMutationDuplication();
         //Define the cost function for the energy
-        EnergyManager = new CostFunction();
-        //Set the energy to max since newborn !
+        EnergyManager = new CostFunctionV2();
+
         if (Time.frameCount < 3)
+        {
+            Debug.Log($"Instantiating the creature !, initial setup {initialSize}, {initialRegime},{initialMaxSpeed},{initialMaxEnergy}");
+            CreatureRegime = initialRegime;
+            MaxSpeed = initialMaxSpeed;
+            MaxEnergy = initialMaxEnergy;
+            Size = initialSize;
+            Sensor = new CircularSensorV2(initialSensingRadius);
             Energy = MaxEnergy;
+        }
         else
         {
-            Debug.Log($"I am a baby, energy is {Energy}");
-            Energy = EnergyManager.ReproductionCost(this);
+            // Energy = EnergyManager.ReproductionCost(this);
         }
-
-
     }
 
     // Update is called once per frame
@@ -126,13 +129,14 @@ public class Creature : MonoBehaviour
     {
         speed = Mathf.Clamp(speed, 0, 1);
         direction.y = 0;
-        Vector3 speedVector= direction.normalized * speed * MaxSpeed;
+        Vector3 speedVector = direction.normalized * speed * MaxSpeed;
         transform.position += speedVector * Time.deltaTime;
-        Energy -= EnergyManager.MoveCost(this, speed * MaxSpeed);
 
         // Rotate models
         Quaternion rotation = Quaternion.LookRotation(-direction, Vector3.up);
         transform.rotation = rotation;
+
+        Energy -= EnergyManager.MoveCost(this, speed * MaxSpeed);
     }
 
     /// <summary>
@@ -154,16 +158,20 @@ public class Creature : MonoBehaviour
     /// </summary>
     public void Reproduce()
     {
-        if (Energy <= EnergyManager.ReproductionCost(this))
+        float energyCost = EnergyManager.ReproductionCost(this);
+        if (Energy <= energyCost)
             return;
         //Instantiate the baby
-        Creature baby = Instantiate<Creature>(this, getClosestFreePoint(transform.position),transform.rotation);
+        Creature baby = Instantiate<Creature>(this, getClosestFreePoint(transform.position), transform.rotation);
         baby.name = this.name;
         //Modify its characteristics
         this.Reproducer.CreateBaby(this, baby);
         // The parent loses energy and gives it to the child
-        baby.Energy = EnergyManager.ReproductionCost(this);
-        Energy -= EnergyManager.ReproductionCost(this);
+        baby.Energy = energyCost;
+
+        Energy -= energyCost;
+
+        Debug.Log("new baby size=" + baby.Size + " speed=" + baby.MaxSpeed + " sensing=" + baby.Sensor.SensingRadius + " energy=" + baby.Energy);
     }
 
     Vector3 getClosestFreePoint(Vector3 point)
