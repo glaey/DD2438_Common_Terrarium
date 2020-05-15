@@ -18,3 +18,5 @@
  ISensorV2 is a new interface that extend ISensor with usefull methods as SensePredators.
  
  CircularSensorV2 is an implementation of ISensorV2.
+ 
+ ChickenAI is a dummy example of AnimalAI.
